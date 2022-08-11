@@ -4,26 +4,30 @@ import {auth} from "../../firebase-config"
 import {onAuthStateChanged, signOut} from "firebase/auth"
 import { User as FirebaseUser } from "firebase/auth";
 import {useNavigate} from "react-router-dom"
+import {usersSlice} from "../../store/reducers/usersReducer";
+import {useAppDispatch} from "../../hooks/redux";
+
 
 
 
 export const Navbar=():ReactElement=>{
     const navigate = useNavigate()
      const [user, setUser] = useState< FirebaseUser| null>(null)
+    const {setAuth} = usersSlice.actions
+    const dispatch = useAppDispatch()
 
     onAuthStateChanged(auth, (currentUser)=>{
              setUser(currentUser)
-    })
-    useEffect(()=>{
         if(user){
-            navigate('/')
-        } else{
-            navigate('/login')
+            dispatch(setAuth(true))
+
         }
-    },[user])
+    })
+
 
     const logout = async ()=>{
        await signOut(auth)
+        dispatch(setAuth(false))
         navigate('/')
     }
 

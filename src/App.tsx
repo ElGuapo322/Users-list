@@ -6,6 +6,7 @@ import {LoginPage} from "./components/Login/LoginPage";
 import {Navbar} from "../src/components/Navbar/Navbar"
 import {UsersPage} from "./components/UsersPage/UsersPage";
 
+
 function App() {
   return (
       <>
@@ -13,8 +14,8 @@ function App() {
       <BrowserRouter>
           <Navbar/>
     <Routes>
-        <Route path={"/login"} element={<LoginPage/>}/>
-        <Route path={"/"} element={<UsersPage/>}/>
+        <Route path={"/"} element={<LoginPage/>}/>
+        <Route path={"/users"} element={<UsersPage/>}/>
     </Routes>
       </BrowserRouter>
       </>

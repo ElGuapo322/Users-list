@@ -1,18 +1,24 @@
-import React, {ReactElement, useState} from 'react';
-import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth"
+import React, {ReactElement, useEffect, useState} from 'react';
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from "firebase/auth"
 import {auth} from "../../firebase-config"
 import './LoginPage.css'
 import {useNavigate} from 'react-router-dom'
-
+import {User as FirebaseUser} from "@firebase/auth";
+import {usersSlice} from "../../store/reducers/usersReducer";
+import {useAppSelector} from "../../hooks/redux";
 
 
 export const LoginPage=():ReactElement=>{
+    const [user, setUser] = useState< FirebaseUser| null>(null)
     const [isNewUser, setIsNewUser] = useState(false)
     const [loginEmail, setLoginEmail] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
     const [regEmail, setRegEmail] = useState('')
     const [regPassword, setRegPassword] = useState('')
     const [error, setError] = useState('')
+    const navigate = useNavigate()
+    const {isAuth} = useAppSelector(state=>state.usersReducer)
+
 
     const loginEmailHandler = (event: React.ChangeEvent<HTMLInputElement>)=>{
         setLoginEmail(event.target.value)
@@ -47,8 +53,13 @@ export const LoginPage=():ReactElement=>{
             const result = (error as Error).message
             setError(result)
         }
-
     }
+
+    useEffect(()=>{
+        if(isAuth) {
+            navigate('/users')
+        }
+    },[isAuth])
     return(
         <div>
             {isNewUser ? (

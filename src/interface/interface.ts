@@ -28,12 +28,8 @@ export interface IUser {
 export interface IState {
     users: IUser[]
     isLoading: boolean
-    error: string[]
+    error: string
+    isAuth: boolean
 }
 
-export const initialState: IState = {
-    users: [],
-    isLoading: false,
-    error:[]
-}
 

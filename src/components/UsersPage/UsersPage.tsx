@@ -5,16 +5,18 @@ import {UserCard} from "../UserCard/UserCard";
 import "./UserPage.css"
 import {Modal} from "../Modal/Modal";
 import{IUser} from "../../interface/interface";
+import {useNavigate} from 'react-router-dom'
 
 
 export const UsersPage=():ReactElement=>{
     const dispatch = useAppDispatch()
-    const {users} = useAppSelector(state => state.usersReducer)
+    const {users, isAuth} = useAppSelector(state => state.usersReducer)
     const [modalOpen, setIsModalOpen] = useState(false)
     const [selectedCard, setSelectedCard] = useState('')
     const [target, setTarget] = useState('')
     const [searchInput, setSearchInput] = useState('')
     const [filtered, setFiltered] = useState<IUser[]>([])
+    const navigate = useNavigate()
 
     const showModal = (state:boolean, id:string | undefined, target:string | undefined):void=>{
         setIsModalOpen(state)
@@ -23,12 +25,13 @@ export const UsersPage=():ReactElement=>{
         if (state === true){
             document.body.style.overflow = 'hidden'
         } else if(state === false){
-            document.body.style.overflow = 'scroll'
+            document.body.style.overflow = 'visible'
         }
     }
     const addUser = () =>{
         setIsModalOpen(true)
-        setTarget("add"||'')
+        setTarget("add")
+        document.body.style.overflow = 'hidden'
     }
     const search = (event: React.ChangeEvent<HTMLInputElement>) =>{
         setSearchInput(event.target.value)
@@ -36,14 +39,16 @@ export const UsersPage=():ReactElement=>{
             event.target.value
                 .toLowerCase()
                 .split(' ')
-                .every((word) => (item.username || item.name).toLowerCase().startsWith(word))
+                .every((word) => item.username.toLowerCase().startsWith(word))
         );
         setFiltered(arr)
     }
 
     useEffect(()=>{
-        dispatch(fetchUsers())
-    },[dispatch])
+        if(!isAuth){
+            navigate('/')
+        } else dispatch(fetchUsers())
+    },[])
 
 
     return (
@@ -55,7 +60,7 @@ export const UsersPage=():ReactElement=>{
 
         <div className={'page-wrapper'}>
 
-            { (users && searchInput.length === 0) && users.map((user)=>(
+            { (users.length>0 && searchInput.length === 0) && users.map((user)=>(
                 <UserCard
                     id={user.id}
                     name={user.name}

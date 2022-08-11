@@ -1,16 +1,32 @@
 .page-wrapper{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     flex-wrap: wrap;
     gap: 20px;
     padding: 40px;
 }
 .page-actions{
     display: flex;
-    padding: 40px;
+    padding: 40px 40px 5px 40px;
     gap: 20px;
 }
 .page-actions__button{
-    width: 10%;
+    width: 140px;
+    font-weight: 600;
 
+}
+@media screen and (max-width: 1300px){
+    .page-wrapper{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 915px){
+    .page-wrapper{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 650px){
+    .page-wrapper{
+        grid-template-columns: 1fr;
+    }
 }

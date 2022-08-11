@@ -121,7 +121,7 @@ export const Modal = ({isOpen, showModal, id, target}:IModalProps):ReactElement 
                     <div className={"darkBG"} onClick={() => showModal(false)} />
                     <div className={'centered'}>
                         <div className={'modal'}>
-                            <div className={'modal-title'}>Add User</div>
+                            <div className={'modal-title'}>Edit User</div>
                             <input value={userAlias} onChange={userAliasHandler} placeholder={'user alias...'}/>
                             <input value={userName} onChange={userNameHandler} placeholder={'user name...'}/>
                             <input value={userEmail} onChange={userEmailHandler} placeholder={'user email...'}/>
@@ -130,7 +130,7 @@ export const Modal = ({isOpen, showModal, id, target}:IModalProps):ReactElement 
                             <input value={userWebsite} onChange={userWebsiteHandler} placeholder={'user website...'}/>
                             <div className={'modalActions'}>
                                 <div className={'actionsContainer'}>
-                                    <button className={'deleteBtn'} onClick={changeUser}>
+                                    <button className={'editBtn'} onClick={changeUser}>
                                         Apply
                                     </button>
                                     <button
