@@ -1,0 +1,19 @@
+.navbar{
+    position: sticky;
+    background: linear-gradient(76deg, rgba(83,110,241,1) 4%, rgba(10,11,113,1) 100%);
+    max-width: 100%;
+    min-height: 40px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+    font-weight: 600;
+}
+.navbar-logout{
+    cursor: pointer;
+}
+.error{
+    color: red;
+}
